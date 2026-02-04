@@ -19,6 +19,12 @@ public class EventBus {
         subscribers.computeIfAbsent(topic, k -> new CopyOnWriteArrayList<>()).add(listener);
     }
 
+    public void unsubscribe(String topic, EventListener listener) {
+        CopyOnWriteArrayList<EventListener> listeners = subscribers.get(topic);
+        if (listeners != null) {
+            listeners.remove(listener);
+        }
+    }
 
     public void publish(Event event) {
         CopyOnWriteArrayList<EventListener> listeners = subscribers.get(event.getTopic());
