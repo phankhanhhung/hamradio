@@ -18,6 +18,16 @@ public class PluginRegistry {
         return plugins.get(id);
     }
 
+    @SuppressWarnings("unchecked")
+    public <T extends Plugin> List<T> getPluginsByType(Class<T> type) {
+        List<T> result = new ArrayList<>();
+        for (Plugin p : plugins.values()) {
+            if (type.isInstance(p)) {
+                result.add((T) p);
+            }
+        }
+        return result;
+    }
 
     public Collection<Plugin> getAll() {
         return Collections.unmodifiableCollection(plugins.values());
