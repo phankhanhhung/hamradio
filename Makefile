@@ -1,3 +1,4 @@
+# Ham Radio Simulation — Build System
 JAVA_HOME   ?= $(shell readlink -f $$(which javac) | sed 's|/bin/javac||')
 JAVA_INC     = $(JAVA_HOME)/include
 JAVA_INC_OS  = $(JAVA_INC)/linux
