@@ -21,3 +21,7 @@ hamradio/
 ## License
 
 Internal / Confidential — Platform Architecture Team
+
+## Development Status
+
+Event system and DSP graph engine complete.
