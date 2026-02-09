@@ -32,7 +32,9 @@ public abstract class DSPBlock {
 
     public abstract int getOutputSize(int inputSize);
 
+    public void initialize() { }
 
+    public void dispose() { }
 
     public String getId() { return id; }
     public List<Port> getInputs() { return Collections.unmodifiableList(inputs); }

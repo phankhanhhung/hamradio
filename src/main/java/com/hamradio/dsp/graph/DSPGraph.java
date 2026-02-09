@@ -96,9 +96,34 @@ public class DSPGraph {
         return sorted;
     }
 
+    public Connection getConnectionTo(Port inputPort) {
+        for (Connection c : connections) {
+            if (c.getDestination() == inputPort) return c;
+        }
+        return null;
+    }
 
+    public Connection getConnectionFrom(Port outputPort) {
+        for (Connection c : connections) {
+            if (c.getSource() == outputPort) return c;
+        }
+        return null;
+    }
 
+    public void initialize() {
+        for (DSPBlock block : getExecutionOrder()) {
+            block.initialize();
+        }
+    }
 
+    public void dispose() {
+        for (DSPBlock block : blocks.values()) {
+            block.dispose();
+        }
+        for (Connection conn : connections) {
+            conn.close();
+        }
+    }
 
     public String getName() { return name; }
     public DSPBlock getBlock(String id) { return blocks.get(id); }
