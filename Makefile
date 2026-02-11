@@ -18,7 +18,7 @@ LDFLAGS      = -lm
 
 NATIVE_LIB   = $(LIB)/libhamradio.so
 
-# C source files
+# Native C sources (JNI)
 C_SOURCES    = $(SRC_C)/hamradio_buffer.c \
                $(SRC_C)/jni_buffer.c
 
