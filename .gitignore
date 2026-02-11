@@ -14,6 +14,7 @@ plugins/*.jar
 *.h.gch
 hamradio.db
 
+src/main/c/com_hamradio_*.h
 
 .idea/
 *.iml
@@ -24,8 +25,3 @@ hamradio.db
 .DS_Store
 *.swp
 *.swo
-
-# Temporary files
-*.tmp
-*.bak
-*.log
