@@ -1,4 +1,3 @@
-# Ham Radio Simulation — Build System
 JAVA_HOME   ?= $(shell readlink -f $$(which javac) | sed 's|/bin/javac||')
 JAVA_INC     = $(JAVA_HOME)/include
 JAVA_INC_OS  = $(JAVA_INC)/linux
@@ -18,17 +17,24 @@ LDFLAGS      = -lm
 
 NATIVE_LIB   = $(LIB)/libhamradio.so
 
-# Native C sources (JNI)
+# C source files
 C_SOURCES    = $(SRC_C)/hamradio_buffer.c \
+               $(SRC_C)/hamradio_dsp.c \
+               $(SRC_C)/hamradio_modem.c \
+               $(SRC_C)/hamradio_rf.c \
+               $(SRC_C)/jni_dsp.c \
+               $(SRC_C)/jni_rf.c \
                $(SRC_C)/jni_buffer.c
 
 # JNI classes that need header generation
-JNI_CLASSES  = com.hamradio.dsp.buffer.NativeBuffer
+JNI_CLASSES  = com.hamradio.dsp.NativeDSP \
+               com.hamradio.rf.NativeRF \
+               com.hamradio.dsp.buffer.NativeBuffer
 
 # Classpath
 CP           = $(CLASSES)
 
-.PHONY: all java headers native clean
+.PHONY: all java headers native run clean
 
 all: java headers native
 
@@ -56,7 +62,14 @@ native: headers
 		-o $(NATIVE_LIB) $(LDFLAGS)
 	@echo "[make] Native library built: $(NATIVE_LIB)"
 
+# --- Run (standalone) ---
+run: all
+	$(JAVA) -Djava.library.path=$(LIB) \
+		-cp "$(CLASSES)" \
+		com.hamradio.HamRadioApp
+
 # --- Clean ---
 clean:
 	rm -rf $(BUILD) $(LIB)
+	rm -f $(SRC_C)/com_hamradio_*.h
 	@echo "[make] Cleaned."
