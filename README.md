@@ -24,4 +24,4 @@ Internal / Confidential — Platform Architecture Team
 
 ## Development Status
 
-Native C DSP engine integrated.
+DSP block library (AM/FM/SSB) complete.
