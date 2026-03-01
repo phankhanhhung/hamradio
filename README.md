@@ -24,4 +24,4 @@ Internal / Confidential — Platform Architecture Team
 
 ## Development Status
 
-DSP block library (AM/FM/SSB) complete.
+RF propagation system with 5 models complete.
