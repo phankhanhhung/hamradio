@@ -11,6 +11,9 @@ public class ChannelPipeline implements ChannelModel {
         stages.add(model);
     }
 
+    public void removeStage(String name) {
+        stages.removeIf(m -> m.getName().equals(name));
+    }
 
     @Override
     public float[] process(float[] signal, RFContext context) {
