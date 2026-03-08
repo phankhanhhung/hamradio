@@ -24,4 +24,4 @@ Internal / Confidential — Platform Architecture Team
 
 ## Development Status
 
-RF propagation system with 5 models complete.
+Network protocol and server implemented.
