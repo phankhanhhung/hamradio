@@ -34,6 +34,51 @@ public class ServerConfig {
      *   --propagation <str>   Propagation model: fspl | multipath | ionospheric | full (default full)
      *   --max-clients <int>   Maximum simultaneous connections (default 10)
      */
+    public static ServerConfig parse(String[] args) {
+        ServerConfig config = new ServerConfig();
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i]) {
+                case "--port":
+                    if (i + 1 < args.length) {
+                        config.port = parsePositiveInt(args[++i], "port");
+                    } else {
+                        throw new IllegalArgumentException("--port requires a value");
+                    }
+                    break;
+                case "--sample-rate":
+                    if (i + 1 < args.length) {
+                        config.sampleRate = parsePositiveInt(args[++i], "sample-rate");
+                    } else {
+                        throw new IllegalArgumentException("--sample-rate requires a value");
+                    }
+                    break;
+                case "--propagation":
+                    if (i + 1 < args.length) {
+                        String model = args[++i];
+                        if (!model.equals("fspl") && !model.equals("multipath")
+                                && !model.equals("ionospheric") && !model.equals("full")) {
+                            throw new IllegalArgumentException(
+                                    "Invalid propagation model: " + model
+                                            + " (expected: fspl, multipath, ionospheric, full)");
+                        }
+                        config.propagationModel = model;
+                    } else {
+                        throw new IllegalArgumentException("--propagation requires a value");
+                    }
+                    break;
+                case "--max-clients":
+                    if (i + 1 < args.length) {
+                        config.maxClients = parsePositiveInt(args[++i], "max-clients");
+                    } else {
+                        throw new IllegalArgumentException("--max-clients requires a value");
+                    }
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown argument: " + args[i]);
+            }
+        }
+        return config;
+    }
 
     private static int parsePositiveInt(String value, String name) {
         try {
@@ -48,4 +93,10 @@ public class ServerConfig {
     }
 
     @Override
+    public String toString() {
+        return "ServerConfig{port=" + port
+                + ", sampleRate=" + sampleRate
+                + ", propagationModel='" + propagationModel + '\''
+                + ", maxClients=" + maxClients + '}';
+    }
 }

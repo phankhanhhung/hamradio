@@ -1,8 +1,10 @@
 package com.hamradio.net;
 
+import com.hamradio.dsp.graph.DSPGraph;
 
 public class Station {
 
+    public enum TxRxState { IDLE, TRANSMITTING, RECEIVING }
 
     private final String callsign;
     private final double latitude;
@@ -10,6 +12,9 @@ public class Station {
     private double frequencyHz;
     private String mode;
     private boolean upperSideband;
+    private TxRxState txRxState = TxRxState.IDLE;
+    private DSPGraph txGraph;
+    private DSPGraph rxGraph;
 
     public Station(String callsign, double latitude, double longitude,
                    double frequencyHz, String mode) {
@@ -43,4 +48,10 @@ public class Station {
     public void setMode(String mode) { this.mode = mode; }
     public boolean isUpperSideband() { return upperSideband; }
     public void setUpperSideband(boolean usb) { this.upperSideband = usb; }
+    public TxRxState getTxRxState() { return txRxState; }
+    public void setTxRxState(TxRxState state) { this.txRxState = state; }
+    public DSPGraph getTxGraph() { return txGraph; }
+    public void setTxGraph(DSPGraph g) { this.txGraph = g; }
+    public DSPGraph getRxGraph() { return rxGraph; }
+    public void setRxGraph(DSPGraph g) { this.rxGraph = g; }
 }

@@ -36,4 +36,10 @@ public class StationManager {
         return Collections.unmodifiableCollection(stations.values());
     }
 
+    public void destroyAll() {
+        for (String callsign : stations.keySet()) {
+            eventBus.publish(new StationEvent(this, callsign, "destroyed"));
+        }
+        stations.clear();
+    }
 }
