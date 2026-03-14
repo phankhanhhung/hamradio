@@ -49,10 +49,38 @@ public class ScenarioManager {
         log("Scenario running");
     }
 
+    public void pause() {
+        ensureState(ScenarioState.RUNNING);
+        transition(ScenarioState.PAUSED);
+        log("Scenario paused");
+    }
 
+    public void resume() {
+        ensureState(ScenarioState.PAUSED);
+        transition(ScenarioState.RUNNING);
+        log("Scenario resumed");
+    }
 
+    public void complete() {
+        if (state != ScenarioState.RUNNING && state != ScenarioState.PAUSED) {
+            throw new IllegalStateException("Cannot complete from state: " + state);
+        }
+        transition(ScenarioState.COMPLETED);
+        resourceAllocator.shutdown();
+        log("Scenario completed");
+    }
 
+    public void fail(String reason) {
+        transition(ScenarioState.FAILED);
+        resourceAllocator.shutdown();
+        log("Scenario failed: " + reason);
+    }
 
+    public void reset() {
+        transition(ScenarioState.DRAFT);
+        config = null;
+        log("Scenario reset");
+    }
 
     public ScenarioState getState() { return state; }
     public ScenarioConfig getConfig() { return config; }

@@ -266,4 +266,9 @@ public class SimulationEngine {
     }
 
     /**
+     * Releases native DSP resources.
+     */
+    public void shutdown() {
+        nativeDSP.dspShutdown();
+    }
 }
