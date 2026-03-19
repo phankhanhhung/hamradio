@@ -24,4 +24,4 @@ Internal / Confidential — Platform Architecture Team
 
 ## Development Status
 
-Network protocol and server implemented.
+UI and client application ready.
