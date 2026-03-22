@@ -92,5 +92,16 @@ public class HamRadioClient extends Application {
     }
 
     @Override
+    public void stop() {
+        if (mainWindow != null) {
+            mainWindow.shutdown();
+        }
+        if (connection != null && connection.isConnected()) {
+            connection.disconnect();
+        }
+    }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
